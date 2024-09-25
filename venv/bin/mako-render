@@ -1,4 +1,4 @@
-#!/Users/osmanorka/MediTrack-Webserver-API/venv/bin/python3.11
+#!/Users/osmanorka/OsmanOrka_T2A2/venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys

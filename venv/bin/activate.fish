@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/osmanorka/MediTrack-Webserver-API/venv"
+set -gx VIRTUAL_ENV "/Users/osmanorka/OsmanOrka_T2A2/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

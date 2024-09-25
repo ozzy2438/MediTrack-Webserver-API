@@ -16,3 +16,4 @@ def init_app(app):
     bcrypt.init_app(app)
     jwt.init_app(app)
     migrate.init_app(app, db)
+    return app
