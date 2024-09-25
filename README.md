@@ -5,6 +5,7 @@
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
+- [Database Setup](#database-setup)
 - [API Documentation](#api-documentation)
 - [Database Schema](#database-schema)
 - [Contributing](#contributing)
@@ -37,13 +38,88 @@ MediTrack API is a robust backend solution designed to manage the complex operat
    ```
    pip install -r requirements.txt
    ```
-3. Set up the database:
-   ```
-   flask db upgrade
-   ```
+3. Set up the database (see [Database Setup](#database-setup) section)
 4. Run the application:
    ```
    flask run
+   ```
+
+## 🗄 Database Setup
+1. Create the database:
+   ```sql
+   CREATE DATABASE meditrack;
+   ```
+
+2. Connect to the database:
+   ```sql
+   \c meditrack
+   ```
+
+3. Grant privileges to your user:
+   ```sql
+   GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO your_username;
+   GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO your_username;
+   ```
+
+4. Create the necessary tables:
+   ```sql
+   -- Patients Table
+   CREATE TABLE patients (
+       id SERIAL PRIMARY KEY,
+       name VARCHAR(100) NOT NULL,
+       surname VARCHAR(100) NOT NULL,
+       date_of_birth DATE NOT NULL,
+       contact_number VARCHAR(20),
+       email VARCHAR(100)
+   );
+
+   -- Doctors Table
+   CREATE TABLE doctors (
+       id SERIAL PRIMARY KEY,
+       name VARCHAR(100) NOT NULL,
+       surname VARCHAR(100) NOT NULL,
+       specialization VARCHAR(100) NOT NULL,
+       contact_number VARCHAR(20),
+       email VARCHAR(100) UNIQUE NOT NULL,
+       password VARCHAR(128) NOT NULL
+   );
+
+   -- Departments Table
+   CREATE TABLE departments (
+       id SERIAL PRIMARY KEY,
+       name VARCHAR(100) NOT NULL,
+       description TEXT
+   );
+
+   -- Appointments Table
+   CREATE TABLE appointments (
+       id SERIAL PRIMARY KEY,
+       patient_id INTEGER REFERENCES patients(id),
+       doctor_id INTEGER REFERENCES doctors(id),
+       appointment_time TIMESTAMP NOT NULL,
+       status VARCHAR(20) NOT NULL
+   );
+
+   -- Patient Medical History Table
+   CREATE TABLE patient_medical_history (
+       id SERIAL PRIMARY KEY,
+       patient_id INTEGER REFERENCES patients(id),
+       record_date DATE NOT NULL,
+       diagnosis TEXT NOT NULL,
+       treatment TEXT
+   );
+
+   -- Doctor Department Table (for many-to-many relationship)
+   CREATE TABLE doctor_department (
+       id SERIAL PRIMARY KEY,
+       doctor_id INTEGER REFERENCES doctors(id),
+       department_id INTEGER REFERENCES departments(id)
+   );
+   ```
+
+5. Run database migrations:
+   ```
+   flask db upgrade
    ```
 
 ## 📚 API Documentation
