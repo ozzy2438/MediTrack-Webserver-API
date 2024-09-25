@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()
 
@@ -8,3 +9,4 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'postgresql://osmanorka:Abcd-1234@localhost/meditrack'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'this_is_a_very_secret_jwt_key'
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=12)

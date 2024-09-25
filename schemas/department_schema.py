@@ -1,8 +1,9 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields
+from models.department import Department
 
 class DepartmentSchema(Schema):
     id = fields.Int(dump_only=True)
-    name = fields.Str(required=True, validate=validate.Length(min=1, max=100))
+    name = fields.Str(required=True)
     description = fields.Str()
 
 department_schema = DepartmentSchema()

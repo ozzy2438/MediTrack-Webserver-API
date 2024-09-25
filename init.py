@@ -9,3 +9,10 @@ ma = Marshmallow()
 bcrypt = Bcrypt()
 jwt = JWTManager()
 migrate = Migrate()
+
+def init_app(app):
+    db.init_app(app)
+    ma.init_app(app)
+    bcrypt.init_app(app)
+    jwt.init_app(app)
+    migrate.init_app(app, db)

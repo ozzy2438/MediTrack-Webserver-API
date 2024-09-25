@@ -22,10 +22,17 @@ def get_doctor(id):
 @jwt_required()
 def create_doctor():
     doctor_data = doctor_schema.load(request.json)
-    doctor = Doctor(**doctor_data)
-    db.session.add(doctor)
+    new_doctor = Doctor(
+        name=doctor_data['name'],
+        surname=doctor_data['surname'],
+        specialization=doctor_data['specialization'],
+        contact_number=doctor_data.get('contact_number'),
+        email=doctor_data['email'],
+        password=doctor_data['password']
+    )
+    db.session.add(new_doctor)
     db.session.commit()
-    return jsonify(doctor_schema.dump(doctor)), 201
+    return jsonify(doctor_schema.dump(new_doctor)), 201
 
 @doctors_bp.route('/<int:id>', methods=['PUT', 'PATCH'])
 @jwt_required()

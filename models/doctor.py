@@ -1,4 +1,5 @@
 from init import db
+from .associations import doctor_department
 
 class Doctor(db.Model):
     __tablename__ = 'doctors'
@@ -12,4 +13,4 @@ class Doctor(db.Model):
     password = db.Column(db.String(128), nullable=False)
 
     appointments = db.relationship('Appointment', back_populates='doctor', cascade='all, delete-orphan')
-    departments = db.relationship('Department', secondary='doctor_department', back_populates='doctors')
+    departments = db.relationship('Department', secondary=doctor_department, back_populates='doctors')
