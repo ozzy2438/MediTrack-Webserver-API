@@ -1,58 +1,70 @@
-# MediaTrack-Webserver-API
+# 🏥 MediTrack API
 
-MediTrack: Hospital Management System API
-Table of Contents
+## 📋 Table of Contents
+- [About the Project](#about-the-project)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [API Documentation](#api-documentation)
+- [Database Schema](#database-schema)
+- [Contributing](#contributing)
+- [License](#license)
 
-Problem Identification
-Problem Justification
-Database System Choice
-ORM Functionalities and Benefits
-API Endpoints Documentation
-Entity Relationship Diagram
-Third-party Services
-Models and Their Relationships
-Database Relations
-Task Allocation and Tracking
+## 🚀 About the Project
+MediTrack API is a robust backend solution designed to manage the complex operations of modern hospitals. It unifies patient records, doctor schedules, appointments, and departmental management into a single, accessible platform.
 
-1. Problem Identification
-The MediTrack API addresses the complex challenge of managing hospital operations in the digital age. It aims to streamline patient records, doctor schedules, appointments, and departmental management through a unified, accessible system.
-2. Problem Justification
-Modern healthcare facilities face increasing demands for efficiency, accuracy, and data management. Manual systems are prone to errors, time-consuming, and lack the ability to provide real-time insights. MediTrack solves these issues by:
+## ✨ Features
+- 👤 User Authentication and Authorization
+- 🏥 Patient Management
+- 👨‍⚕️ Doctor Management
+- 📅 Appointment Scheduling
+- 🏢 Department Management
+- 📊 Detailed Reporting
 
-Centralizing patient and doctor information
-Automating appointment scheduling
-Facilitating interdepartmental communication
-Enhancing data security and accessibility
-Improving overall operational efficiency
+## 🛠 Technologies Used
+- Python 3.11
+- Flask
+- SQLAlchemy
+- PostgreSQL
+- JWT Authentication
 
-3. Database System Choice
-PostgreSQL was chosen for this project due to its robust features:
+## 💻 Getting Started
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/meditrack-api.git
+   ```
+2. Install required packages:
+   ```
+   pip install -r requirements.txt
+   ```
+3. Set up the database:
+   ```
+   flask db upgrade
+   ```
+4. Run the application:
+   ```
+   flask run
+   ```
 
-ACID Compliance: Ensures data integrity in complex transactions.
-Scalability: Handles large datasets efficiently, crucial for growing healthcare facilities.
-Complex Queries: Supports advanced SQL features for intricate data analysis.
-Extensibility: Allows custom functions and data types.
-Concurrent Users: Manages multiple simultaneous connections effectively.
+## 📚 API Documentation
+For detailed API documentation, please refer to the [API.md](API.md) file.
 
-Drawbacks compared to other systems:
+## 🗄 Database Schema
+Information about the database schema and relationships can be found in the [DATABASE.md](DATABASE.md) file.
 
-Higher resource consumption compared to lighter databases like SQLite.
-Steeper learning curve than some NoSQL alternatives.
+## 🖼 Additional Resources
+For a more comprehensive view of the project:
 
-4. ORM Functionalities and Benefits
-SQLAlchemy is used as the ORM (Object-Relational Mapping) tool, offering:
+- The Entity Relationship Diagram (ERD) can be found in the `imsonia_images` directory.
+- Screenshots of API testing using Insomnia are also available in the `imsonia_images` directory.
 
-Database Abstraction: Allows switching between different SQL databases with minimal code changes.
-Query Optimization: Generates efficient SQL queries.
-Object-Oriented Paradigm: Represents database entities as Python objects.
-Relationship Mapping: Simplifies complex database relationships.
-Migration Support: Facilitates schema evolution over time.
+These visual resources provide a clearer understanding of the database structure and API functionality.
 
-Benefits include increased development speed, reduced boilerplate code, and improved code maintainability.
-5. API Endpoints Documentation
-Authentication
+## 🤝 Contributing
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
-POST /auth/register: Register a new user
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 Required data: {name, email, password, role}
 Response: User object and JWT token
