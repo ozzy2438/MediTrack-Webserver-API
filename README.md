@@ -8,6 +8,11 @@
 - [Database Setup](#database-setup)
 - [API Documentation](#api-documentation)
 - [Database Schema](#database-schema)
+- [Third-party Services](#third-party-services)
+- [Models and Their Relationships](#models-and-their-relationships)
+- [Database Relations](#database-relations)
+- [Task Allocation and Tracking](#task-allocation-and-tracking)
+- [Additional Resources](#additional-resources)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -123,12 +128,85 @@ MediTrack API is a robust backend solution designed to manage the complex operat
    ```
 
 ## 📚 API Documentation
-For detailed API documentation, please refer to the [API.md](API.md) file.
+For detailed API documentation, please refer to the [API.md](API.md) file. Here's a brief overview:
+
+### Authentication
+
+#### User Registration
+- **Endpoint:** POST /auth/register
+- **Required data:** {name, email, password, role}
+- **Response:** User object and JWT token
+
+#### User Login
+- **Endpoint:** POST /auth/login
+- **Required data:** {email, password}
+- **Response:** JWT token
+
+### Patients
+
+- GET /patients: List all patients
+- POST /patients: Add a new patient
+- GET /patients/<id>: View a specific patient
+- PUT /patients/<id>: Update patient information
+- DELETE /patients/<id>: Delete a patient record
+
+[Similar documentation for Doctors, Appointments, and Departments]
 
 ## 🗄 Database Schema
 Information about the database schema and relationships can be found in the [DATABASE.md](DATABASE.md) file.
 
+### Entity Relationship Diagram
+[Insert your ERD image here]
+This diagram illustrates the relationships between Patients, Doctors, Appointments, and Departments.
+
+## 🛠 Third-party Services
+
+- **Flask:** Web framework for building the API
+- **Flask-SQLAlchemy:** ORM for database operations
+- **Flask-Marshmallow:** Object serialization/deserialization
+- **Flask-JWT-Extended:** JWT token handling for authentication
+- **PostgreSQL:** Database management system
+- **Gunicorn:** WSGI HTTP Server for deployment (if applicable)
+
+## 📊 Models and Their Relationships
+
+### Patient
+- Has many Appointments
+- Belongs to one Department
+
+### Doctor
+- Has many Appointments
+- Belongs to one Department
+
+### Appointment
+- Belongs to one Patient
+- Belongs to one Doctor
+
+### Department
+- Has many Patients
+- Has many Doctors
+
+## 🔗 Database Relations
+The database schema implements the following relations:
+
+- One-to-Many between Department and Patients/Doctors
+- Many-to-Many between Patients and Doctors (through Appointments)
+- One-to-Many between Patients/Doctors and Appointments
+
+These relations ensure data integrity and facilitate complex queries across the system.
+
+## 📅 Task Allocation and Tracking
+Project tasks were managed using GitHub Projects:
+
+1. **Planning Phase:** ERD design, technology stack selection
+2. **Development Phase:** Iterative implementation of models, routes, and controllers
+3. **Testing Phase:** Unit testing, integration testing
+4. **Documentation Phase:** API documentation, README compilation
+
+Tasks were moved through 'To Do', 'In Progress', and 'Completed' stages, with regular commits to track progress.
+
 ## 🖼 Additional Resources
+
 For a more comprehensive view of the project:
 
 - The Entity Relationship Diagram (ERD) can be found in the `imsonia_images` directory.
