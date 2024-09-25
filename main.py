@@ -1,35 +1,44 @@
+import os
 from flask import Flask
-from flask_cors import CORS
-from flask_jwt_extended import JWTManager
-from app.config import Config
+from marshmallow.exceptions import ValidationError
+from flask_migrate import Migrate
 
-def create_app(config_class=Config):
+from init import db, ma, bcrypt, jwt, migrate
+from controllers.auth_controller import auth_bp
+from controllers.patient_controller import patients_bp
+from controllers.doctor_controller import doctors_bp
+from controllers.appointment_controller import appointments_bp
+from controllers.department_controller import departments_bp
+
+def create_app():
     app = Flask(__name__)
-    app.config.from_object(config_class)
+    app.json.sort_keys = False
+    
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+    app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
 
-    # JWT'yi uygulama ile ilişkilendirme
-    JWTManager(app)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    ma.init_app(app)
+    bcrypt.init_app(app)
+    jwt.init_app(app)
 
-    # CORS ayarları
-    CORS(app)
+    @app.errorhandler(ValidationError)
+    def validation_error(err):
+        return {"error": err.messages}, 400
 
-    # Route'ları içe aktarma
-    from app.routes import patient, doctor, appointment, department, auth
-
-    # Route'ları uygulamaya ekleme
-    app.register_blueprint(patient.patient_bp, url_prefix='/api/patients')
-    app.register_blueprint(doctor.doctor_bp, url_prefix='/api/doctors')
-    app.register_blueprint(appointment.appointment_bp, url_prefix='/api/appointments')
-    app.register_blueprint(department.department_bp, url_prefix='/api/departments')
-    app.register_blueprint(auth.auth_bp, url_prefix='/api/auth')
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(patients_bp)
+    app.register_blueprint(doctors_bp)
+    app.register_blueprint(appointments_bp)
+    app.register_blueprint(departments_bp)
 
     @app.route('/')
-    def root():
+    def home():
         return {"message": "Welcome to MediTrack API"}
 
     return app
 
-# Bu kısım, bu dosyayı doğrudan çalıştırdığımızda uygulamayı başlatır
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    app.run()
